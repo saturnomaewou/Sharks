@@ -59,7 +59,7 @@ const facts = [
  {
     id:7,
     species:"Tubarão-Londrina Esporte Clube",
-    title:"O Londrina Esporte Clube , mais comumente conhecido como Londrina , é um clube de futebol profissional brasileiro de Londrina , Paraná",
+    title:" Londrina , é um clube de futebol profissional brasileiro de Londrina , Paraná",
     fact:"O Londrina Esporte Clube, apelidado de Tubarão desde os anos 70, teve um breve período com as cores vermelho e branco antes de retornar ao tradicional azul e branco. Destaca-se por ter alcançado o 4º lugar no Campeonato Brasileiro Série A em 1977 e conquistado o título da Série B em 1980. Além disso, o clube venceu a Copa da Primeira Liga, cinco Campeonatos Paranaenses da Primeira Divisão e três da Segunda Divisão. O Londrina Esporte Clube recebeu o apelido de Tubarão do jornalista Victor Grein Neto, inspirado no filme Tubarão, que fez muito sucesso após um amistoso em 1976.",
     img:"londrina.jpg",
     tags:["é um time tradicional do futebol paranaense, conhecido como Tubarão e por suas campanhas históricas, incluindo um título nacional. "],
@@ -323,3 +323,4 @@ populateFilter();
 render();
 
 document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') { modalBack.style.display = 'none'; stopCurrentAudio(); } });
+
