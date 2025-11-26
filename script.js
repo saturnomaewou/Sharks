@@ -47,7 +47,7 @@ const facts = [
     tags:["rasas","pele","pequeno"],
     music:"lixa.mp3"
   },
-  {
+{
     id:6,
     species:"Tubarão-duende",
     title:"Vive no fundo do mar",
@@ -55,6 +55,15 @@ const facts = [
     img:"tubarão-duende.jpg",
     tags:["ocinho longo e achatado em forma de pá", "corpo mole" ,"flácido","mandíbula que se projeta para a frente rapidamente para capturar presas","Possui pele translúcida de cor rosada", "pequenos olhos","dentes longos e afiados","nadadeiras pequenas e arredondadas","pele","pequeno"],
     music:"duende.mp3"
+  },
+ {
+    id:7,
+    species:"Tubarão-Londrina Esporte Clube",
+    title:"O Londrina Esporte Clube , mais comumente conhecido como Londrina , é um clube de futebol profissional brasileiro de Londrina , Paraná",
+    fact:"O tubarão-duende é um peixe das profundezas conhecido por sua mandíbula protuberante que se projeta para capturar presas. Suas outras características incluem um focinho longo com órgãos elétricos para detectar presas, dentes em forma de agulha e uma alimentação composta por peixes, lulas e crustáceos. Ele vive em grandes profundidades nos oceanos Atlântico, Pacífico e Índico.",
+    img:"londrina.jpg",
+    tags:["é um time tradicional do futebol paranaense, conhecido como Tubarão e por suas campanhas históricas, incluindo um título nacional. "],
+    music:"londrina.mp3"
   }
 ];
 
