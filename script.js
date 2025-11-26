@@ -1,4 +1,6 @@
-// Dados iniciais
+// script.js (atualizado com áudio por espécie)
+
+// Dados iniciais (adicionei a propriedade music com caminho relativo)
 const facts = [
   {
     id:1,
@@ -6,7 +8,8 @@ const facts = [
     title:"Predador ápice com olfato aguçado",
     fact:"O tubarão-branco pode detectar uma gota de sangue em 25 litros de água e sentir vibrações a grandes distâncias.   Pode atingir até 6 metros de comprimento e pesar mais de 2 toneladas.   Tem um olfato tão apurado que consegue detectar uma gota de sangue em grandes volumes de água.  Apesar da fama de “assassino”, ataques a humanos são raros; muitas vezes o tubarão confunde surfistas com focas.   Habita mares temperados e costeiros, retornando sempre às mesmas áreas de alimentação.",
     img:"tubarão-branco.jpg",
-    tags:["olfato","predador","grande porte"]
+    tags:["olfato","predador","grande porte"],
+    music:"branco.mp3"
   },
   {
     id:2,
@@ -14,7 +17,8 @@ const facts = [
     title:"O maior peixe do mundo",
     fact:"O tubarão-baleia pode ultrapassar 12 metros e se alimenta filtrando plâncton e pequenos peixes.  É o maior peixe do mundo, podendo chegar a 20 metros de comprimento.  Apesar do tamanho, é inofensivo: alimenta-se de plâncton e pequenos peixes. Possui uma coloração única, com manchas brancas que funcionam como camuflagem.  Está ameaçado de extinção devido à pesca predatória e ao turismo descontrolado.",
     img:"tubarão-baleia.jpg",
-    tags:["filtrador","plâncton","gigante"]
+    tags:["filtrador","plâncton","gigante"],
+    music:"baleia.mp3"
   },
   {
     id:3,
@@ -22,7 +26,8 @@ const facts = [
     title:"Cabeça em forma de martelo",
     fact:"A cabeça em 'T' aumenta a área sensorial, ajudando a localizar presas e a manobrar melhor.  Pode medir até 6 metros, dependendo da espécie. Existem cerca de 10 espécies diferentes de tubarão-martelo.",
     img:"tubarão-martelo.jpg",
-    tags:["sensores","maneabilidade","cabeça"]
+    tags:["sensores","maneabilidade","cabeça"],
+    music:"martelo.mp3"
   },
   {
     id:4,
@@ -30,15 +35,26 @@ const facts = [
     title:"Dieta variada",
     fact:"O tubarão-tigre come de tudo: peixes, tartarugas, aves e até lixo marinho, por isso é chamado de 'lixeiro do mar.  É o quarto maior tubarão do planeta e o segundo maior predador. Pode ser encontrado em mares tropicais e temperados em várias partes do mundo. É considerado um dos tubarões mais perigosos para humanos, devido à sua dieta variada.",
     img:"tubarão-tigre.jpg",
-    tags:["onívoro","lixo marinho","tigre"]
+    tags:["onívoro","lixo marinho","tigre"],
+    music:"tigre.mp3"
   },
   {
     id:5,
     species:"Tubarão-lixa",
     title:"Pequeno e resistente",
-    fact:"O tubarão-lixa é pequeno, vive em águas rasas e tem pele áspera que o protege de parasitas. Pode viver cerca de 25 anos e atingir até 4 metros de comprimento. É uma espécie calma e pouco agressiva, mas pode reagir se for perturbada. ",
+    fact:"O tubarão-lixa é pequeno, vive em águas rasas e tem pele áspera que o protege de parasitas. Pode viver cerca de 25 anos e atingir até 4 metros de comprimento. É uma espécie calma e pouco agressiva, mas pode reagir se for perturbada.",
     img:"tubarão-lixa.jpg",
-    tags:["rasas","pele","pequeno"]
+    tags:["rasas","pele","pequeno"],
+    music:"lixa.mp3"
+  },
+  {
+    id:6,
+    species:"Tubarão-duende",
+    title:"Vive no fundo do mar",
+    fact:"O tubarão-duende é um peixe das profundezas conhecido por sua mandíbula protuberante que se projeta para capturar presas. Suas outras características incluem um focinho longo com órgãos elétricos para detectar presas, dentes em forma de agulha e uma alimentação composta por peixes, lulas e crustáceos. Ele vive em grandes profundidades nos oceanos Atlântico, Pacífico e Índico.",
+    img:"tubarão-duende.jpg",
+    tags:["ocinho longo e achatado em forma de pá", "corpo mole" ,"flácido","mandíbula que se projeta para a frente rapidamente para capturar presas","Possui pele translúcida de cor rosada", "pequenos olhos","dentes longos e afiados","nadadeiras pequenas e arredondadas","pele","pequeno"],
+    music:"duende.mp3"
   }
 ];
 
@@ -74,6 +90,15 @@ function populateFilter(){
     opt.value = s; opt.textContent = s;
     filterEl.appendChild(opt);
   });
+}
+
+// Controle global para garantir que só uma música toque por vez
+let currentAudio = null;
+function stopCurrentAudio(){
+  if(currentAudio){
+    try { currentAudio.pause(); currentAudio.currentTime = 0; } catch(e){}
+    currentAudio = null;
+  }
 }
 
 function render(){
@@ -139,9 +164,68 @@ function render(){
     factP.className = 'fact';
     factP.textContent = item.fact;
 
+    // Player simples no card (play/pause + volume)
+    const playerWrap = document.createElement('div');
+    playerWrap.style.display = 'flex';
+    playerWrap.style.alignItems = 'center';
+    playerWrap.style.gap = '8px';
+    playerWrap.style.marginTop = '8px';
+
+    const playBtn = document.createElement('button');
+    playBtn.className = 'icon-btn';
+    playBtn.textContent = '▶︎';
+    playBtn.title = 'Tocar música da espécie';
+
+    const audio = document.createElement('audio');
+    audio.src = item.music || '';
+    audio.preload = 'none';
+    audio.volume = 0.6;
+
+    playBtn.onclick = (e)=>{
+      e.stopPropagation();
+      if(!audio.src){
+        alert('Nenhuma música atribuída a esta espécie.');
+        return;
+      }
+      if(currentAudio && currentAudio !== audio){
+        stopCurrentAudio();
+      }
+      if(audio.paused){
+        audio.play().then(()=>{
+          currentAudio = audio;
+          playBtn.textContent = '⏸';
+        }).catch(()=>{
+          // se o navegador bloquear autoplay, apenas alterna ícone
+          playBtn.textContent = '⏸';
+          currentAudio = audio;
+        });
+      } else {
+        audio.pause();
+        playBtn.textContent = '▶︎';
+        if(currentAudio === audio) currentAudio = null;
+      }
+    };
+
+    audio.addEventListener('ended', ()=> { playBtn.textContent = '▶︎'; if(currentAudio === audio) currentAudio = null; });
+
+    const vol = document.createElement('input');
+    vol.type = 'range';
+    vol.min = 0; vol.max = 1; vol.step = 0.05; vol.value = audio.volume;
+    vol.style.width = '90px';
+    vol.title = 'Volume';
+    vol.oninput = (e)=> { audio.volume = parseFloat(e.target.value); };
+
+    // manter o elemento audio fora da visualização direta
+    audio.style.display = 'none';
+
+    playerWrap.appendChild(playBtn);
+    playerWrap.appendChild(vol);
+    playerWrap.appendChild(audio);
+
     card.appendChild(thumb);
     card.appendChild(meta);
     card.appendChild(factP);
+    card.appendChild(playerWrap);
 
     card.onclick = ()=> openModal(item);
 
@@ -167,10 +251,47 @@ function openModal(item){
     modalTags.appendChild(span);
   });
 
+  // player no modal
+  stopCurrentAudio();
+  const existing = document.getElementById('modal-audio-wrap');
+  if(existing) existing.remove();
+
+  const wrap = document.createElement('div');
+  wrap.id = 'modal-audio-wrap';
+  wrap.style.display = 'flex';
+  wrap.style.flexDirection = 'column';
+  wrap.style.gap = '8px';
+  wrap.style.marginTop = '12px';
+
+  const audio = document.createElement('audio');
+  audio.src = item.music || '';
+  audio.controls = true;
+  audio.preload = 'none';
+  audio.style.width = '100%';
+  audio.volume = 0.6;
+
+  const hint = document.createElement('div');
+  hint.style.color = 'var(--muted)';
+  hint.style.fontSize = '13px';
+  hint.textContent = audio.src ? 'Use os controles para tocar a trilha desta espécie.' : 'Nenhuma trilha disponível para esta espécie.';
+
+  wrap.appendChild(audio);
+  wrap.appendChild(hint);
+
+  modalFact.parentNode.insertBefore(wrap, modalFact.nextSibling);
+
+  audio.addEventListener('play', ()=> {
+    stopCurrentAudio();
+    currentAudio = audio;
+  });
+  audio.addEventListener('pause', ()=> {
+    if(currentAudio === audio) currentAudio = null;
+  });
+
   modalBack.style.display = 'flex';
 }
-modalClose.onclick = ()=> modalBack.style.display = 'none';
-modalBack.onclick = (e)=> { if(e.target === modalBack) modalBack.style.display = 'none'; };
+modalClose.onclick = ()=> { modalBack.style.display = 'none'; stopCurrentAudio(); };
+modalBack.onclick = (e)=> { if(e.target === modalBack) { modalBack.style.display = 'none'; stopCurrentAudio(); } };
 
 randomBtn.addEventListener('click', ()=>{
   const pool = showingFavorites ? facts.filter(f=>isFav(f.id)) : facts;
@@ -192,4 +313,4 @@ filterEl.addEventListener('change', ()=> render());
 populateFilter();
 render();
 
-document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') modalBack.style.display = 'none'; });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') { modalBack.style.display = 'none'; stopCurrentAudio(); } });
