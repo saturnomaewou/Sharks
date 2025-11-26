@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Curiosidades sobre Tubarões</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap" role="main">
+    <header>
+      <div class="logo">SHK</div>
+      <div>
+        <h1>Curiosidades sobre Tubarões</h1>
+        <p class="lead">Fatos interessantes, espécies e curiosidades do mundo dos tubarões.</p>
+      </div>
+    </header>
+
+    <div class="controls" aria-label="Controles">
+      <input id="search" class="search" placeholder="Buscar por palavra-chave" />
+      <select id="filter" class="select">
+        <option value="all">Todas as espécies</option>
+      </select>
+      <button id="randomBtn" class="btn">Fato aleatório</button>
+      <button id="showFavs" class="btn btn-favs">Favoritos</button>
+    </div>
+
+    <section id="list" class="grid" aria-live="polite"></section>
+
+    <footer>Feito com curiosidade • Explore e aprenda sobre tubarões</footer>
+  </div>
+
+  <div id="modalBack" class="modal-back" role="dialog" aria-modal="true">
+    <div class="modal" role="document">
+      <div class="thumb" id="modalImg"></div>
+      <h2 id="modalTitle"></h2>
+      <p id="modalFact" class="muted"></p>
+      <div class="tags" id="modalTags"></div>
+      <div class="modal-actions">
+        <button id="modalClose" class="icon-btn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
