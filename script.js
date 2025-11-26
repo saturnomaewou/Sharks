@@ -60,7 +60,7 @@ const facts = [
     id:7,
     species:"Tubarão-Londrina Esporte Clube",
     title:"O Londrina Esporte Clube , mais comumente conhecido como Londrina , é um clube de futebol profissional brasileiro de Londrina , Paraná",
-    fact:"O tubarão-duende é um peixe das profundezas conhecido por sua mandíbula protuberante que se projeta para capturar presas. Suas outras características incluem um focinho longo com órgãos elétricos para detectar presas, dentes em forma de agulha e uma alimentação composta por peixes, lulas e crustáceos. Ele vive em grandes profundidades nos oceanos Atlântico, Pacífico e Índico.",
+    fact:"O Londrina Esporte Clube é conhecido por seu apelido de Tubarão, que surgiu na década de 1970 após um amistoso. O clube já teve as cores vermelho e branco, em homenagem à bandeira de Londrina, antes de retornar ao azul e branco. Outras curiosidades incluem a melhor campanha no Campeonato Brasileiro da Série A, em 1977, quando terminou na quarta colocação, e a conquista do título da Série B do Campeonato Brasileiro em 1980. ",
     img:"londrina.jpg",
     tags:["é um time tradicional do futebol paranaense, conhecido como Tubarão e por suas campanhas históricas, incluindo um título nacional. "],
     music:"londrina.mp3"
@@ -323,3 +323,4 @@ populateFilter();
 render();
 
 document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') { modalBack.style.display = 'none'; stopCurrentAudio(); } });
+
